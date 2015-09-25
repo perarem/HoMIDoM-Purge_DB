@@ -81,7 +81,13 @@ $Label3 = GUICtrlCreateLabel("Sélectionner tout", 350, 10, 97, 19)
 $Checkbox1 = GUICtrlCreateCheckbox("Checkbox1", 470, 10, 17, 17)
 
 ;#cs
-Global Const $HoMIDoM = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\HoMIDoM","InstallDir")
+If @OSArch = "X86" Then
+	Local $HoMIDoM_Tmp = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\HoMIDoM","InstallDir")
+Else
+	Local $HoMIDoM_Tmp = RegRead("HKEY_LOCAL_MACHINE64\SOFTWARE\HoMIDoM","InstallDir")
+EndIf
+Global Const $HoMIDoM = $HoMIDoM_Tmp
+;Global Const $HoMIDoM = RegRead("HKEY_LOCAL_MACHINE\SOFTWARE\HoMIDoM","InstallDir")
 Local $XmlConfFile = $HoMIDoM&"\Config\HoMIDoM.xml"
 Local $XMLTmpFile = _XMLFileOpen($XmlConfFile)
 If $XMLTmpFile = -1 Then
